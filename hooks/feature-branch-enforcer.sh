@@ -15,11 +15,14 @@ if [ -z "$CMD" ]; then
   exit 0
 fi
 
-if ! git rev-parse --git-dir > /dev/null 2>&1; then
+# Resolve git root relative to this script's location (reliable regardless of $PWD)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+GIT_ROOT=$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel 2>/dev/null)
+if [ -z "$GIT_ROOT" ]; then
   exit 0
 fi
 
-BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+BRANCH=$(git -C "$GIT_ROOT" rev-parse --abbrev-ref HEAD 2>/dev/null)
 
 if [ "$BRANCH" != "main" ] && [ "$BRANCH" != "master" ]; then
   exit 0

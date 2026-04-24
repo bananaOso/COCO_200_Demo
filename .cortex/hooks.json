@@ -1,0 +1,94 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./hooks/feature-branch-enforcer.sh",
+            "timeout": 5,
+            "enabled": true
+          },
+          {
+            "type": "command",
+            "command": "./hooks/block-push-to-main.sh",
+            "timeout": 5,
+            "enabled": true
+          },
+          {
+            "type": "command",
+            "command": "./hooks/check-branch-freshness.sh",
+            "timeout": 15,
+            "enabled": true
+          },
+          {
+            "type": "command",
+            "command": "./rules/rule-block-destructive-sql.sh",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "./rules/rule-no-select-star.sh",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./rules/rule-no-hardcoded-tables.sh",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "./rules/rule-no-secrets-in-code.sh",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "./rules/rule-staging-layer-purity.sh",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "./rules/rule-no-select-star.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./hooks/dbt-test-on-stop.sh",
+            "timeout": 300,
+            "enabled": true
+          },
+          {
+            "type": "command",
+            "command": "./rules/rule-require-schema-yml.sh",
+            "timeout": 120
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./hooks/load-schema-context.sh",
+            "timeout": 30,
+            "enabled": true
+          }
+        ]
+      }
+    ]
+  }
+}
