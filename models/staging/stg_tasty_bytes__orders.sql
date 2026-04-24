@@ -20,3 +20,4 @@ renamed as (
 select * from renamed
 -- test
 -- test2
+-- test
