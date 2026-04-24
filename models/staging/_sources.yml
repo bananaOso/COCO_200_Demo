@@ -1,0 +1,58 @@
+version: 2
+
+sources:
+  - name: tasty_bytes
+    database: DBT_TASTY_BYTES
+    schema: RAW_DBT
+    tables:
+      - name: ORDER_HEADER
+        description: "Raw order headers from Tasty Bytes food trucks"
+        columns:
+          - name: ORDER_ID
+            description: "Unique order identifier"
+            tests:
+              - unique
+              - not_null
+      - name: ORDER_DETAIL
+        description: "Line-level order details with quantities and pricing"
+        columns:
+          - name: ORDER_DETAIL_ID
+            description: "Unique order line identifier"
+            tests:
+              - unique
+              - not_null
+      - name: CUSTOMER_LOYALTY
+        description: "Customer loyalty program data including demographics"
+        columns:
+          - name: CUSTOMER_ID
+            description: "Unique customer identifier"
+            tests:
+              - unique
+              - not_null
+      - name: MENU
+        description: "Food truck menu items, categories, and pricing"
+        columns:
+          - name: MENU_ITEM_ID
+            description: "Unique menu item identifier"
+            tests:
+              - not_null
+      - name: TRUCK
+        description: "Food truck fleet — make, model, region, franchise"
+        columns:
+          - name: TRUCK_ID
+            description: "Unique truck identifier"
+            tests:
+              - unique
+              - not_null
+      - name: FRANCHISE
+        description: "Franchise owner contact details"
+      - name: LOCATION
+        description: "Truck serving locations with geography"
+        columns:
+          - name: LOCATION_ID
+            description: "Unique location identifier"
+            tests:
+              - unique
+              - not_null
+      - name: COUNTRY
+        description: "Country and city reference data with population"

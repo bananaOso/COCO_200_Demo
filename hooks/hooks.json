@@ -1,0 +1,53 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./hooks/feature-branch-enforcer.sh",
+            "timeout": 5,
+            "enabled": true
+          },
+          {
+            "type": "command",
+            "command": "./hooks/block-push-to-main.sh",
+            "timeout": 5,
+            "enabled": true
+          },
+          {
+            "type": "command",
+            "command": "./hooks/check-branch-freshness.sh",
+            "timeout": 15,
+            "enabled": true
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./hooks/dbt-test-on-stop.sh",
+            "timeout": 300,
+            "enabled": true
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./hooks/load-schema-context.sh",
+            "timeout": 30,
+            "enabled": true
+          }
+        ]
+      }
+    ]
+  }
+}

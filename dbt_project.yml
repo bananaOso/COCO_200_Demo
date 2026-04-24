@@ -1,0 +1,14 @@
+name: 'tasty_bytes_pipeline'
+version: '1.0.0'
+config-version: 2
+
+profile: 'coco_demo'
+
+model-paths: ["models"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+seed-paths: ["seeds"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
