@@ -18,3 +18,4 @@ renamed as (
 )
 
 select * from renamed
+-- test
