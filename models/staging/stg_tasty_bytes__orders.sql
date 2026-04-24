@@ -21,3 +21,4 @@ select * from renamed
 -- test
 -- test2
 -- test
+-- FSEBE test
